@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cosmonaut/calculations/planetManager.dart';
+import 'package:cosmonaut/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:zoom_widget/zoom_widget.dart';
 
@@ -28,39 +29,18 @@ class _SolarSystemState extends State<SolarSystem> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      // SizedBox(
-          // width: 2000,
-          // height: 2000,
-          // child:
-          //  Zoom(
-          //     backgroundColor: Colors.transparent,
-          //     canvasColor: Colors.transparent,
-          //     initTotalZoomOut: true,
-          //     child: const Stack(children: [
-          //       Positioned(
-          //           left: 600,
-          //           top: 5,
-          //           child: Image(image: AssetImage('assets/images/sun1.png')))
-          //     ])
 
-              // Stack(
-              //   fit: StackFit.expand,
-              //   children: _planetManager.getPlanetWidgets(),
-              // )
-
-              // )
               InteractiveViewer(
+                minScale: 0.01,
+                maxScale: 5.0,
                 child:SizedBox(
                   width: 10000,
                   height: 10000,  
                 child: Stack(children: _planetManager.getPlanetWidgets(),) 
                 )),
-              
-              
-              // ),
       Positioned(
-          top: 22,
-          right: 16,
+          top: SWITCH_BUTTON_MARGIN_TOP,
+          right: SWITCH_BUTTON_MARGIN_RIGHT,
           child: OutlinedButton(
               onPressed: () {
                 Navigator.pop(context);

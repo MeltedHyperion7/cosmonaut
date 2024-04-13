@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 
 class Planet extends StatefulWidget {
   final String name;
+  final double size;
   late final String imagePath1;
   late final String imagePath2;
 
-  Planet(this.name, {super.key}) {
+  Planet(this.name, this.size, {super.key}) {
     String nameLowered = name.toLowerCase();
     imagePath1 = "assets/images/${nameLowered}1.png";
     imagePath2 = "assets/images/${nameLowered}2.png";
@@ -57,8 +58,18 @@ class _PlanetState extends State<Planet> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image(image: AssetImage(currentImage)),
-        Text(widget.name, textAlign: TextAlign.center)
+        Image(image: AssetImage(currentImage), fit: BoxFit.contain, filterQuality: FilterQuality.high, height: widget.size, width: widget.size,),
+        const SizedBox(height: 16),
+        Text(
+          widget.name,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+              fontFamily: 'Minecraft',
+              color: Colors.white,
+              decoration: TextDecoration.none,
+              fontSize: 24,
+              letterSpacing: 4),
+        )
       ],
     );
   }

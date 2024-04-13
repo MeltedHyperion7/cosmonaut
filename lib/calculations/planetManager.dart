@@ -9,13 +9,20 @@ class OrbitingPlanet extends StatefulWidget {
   late AssetImage image;
   late double size;
   OrbitingPlanet(
-      this.planetID, this.distance, this.angle, String imageName, this.size,
+      this.planetID, this.distance, double angle, String imageName, this.size,
       {super.key}) {
+
+    this.angle=degrees_to_rads(angle);
     image = AssetImage('assets/images/$imageName.png');
   }
 
+  double degrees_to_rads(double  degrees)
+  {
+    return degrees*pi/180;
+  }
+
   Offset polarToCartesian() {
-    return Offset(distance * cos(angle), distance * sin(angle));
+    return Offset(distance * cos(angle)+200, distance * sin(angle)+500);
   }
 
   @override
@@ -27,7 +34,7 @@ class _OrbitingPlanetState extends State<OrbitingPlanet> {
   Widget build(BuildContext context) {
     Offset offset = widget.polarToCartesian();
     return Positioned(
-        left: offset.dx, top: offset.dy, child: Image(image: widget.image,width: widget.size*100,height: widget.size*100,));
+        left: offset.dx, top: offset.dy, child: Image(image: widget.image,width: widget.size*5,height: widget.size*5,));
   }
 }
 
@@ -37,13 +44,13 @@ class PlanetManager {
   PlanetManager() {
     planets=<String, OrbitingPlanet>{};
     planets["Sun"] = OrbitingPlanet("Sun", 0, 0, "sun1", 10);
-    planets["Mercury"] = OrbitingPlanet("Mercury", 50, 13, "mercury1", 3);
-    planets["Venus"] = OrbitingPlanet("Venus", 100, 65, "venus1", 3);
-    planets["Earth"] = OrbitingPlanet("Earth", 200, 126, "earth1", 4);
-    planets["Mars"] = OrbitingPlanet("Mars", 300, 32, "mars1", 4);
-    planets["Saturn"] = OrbitingPlanet("Saturn", 400, 267, "saturn1", 7);
-    planets["Jupiter"] = OrbitingPlanet("Jupiter", 600, 155, "jupiter1", 8);
-    planets["Uranus"] = OrbitingPlanet("Uranus", 800, 200, "uranus1", 7);
+    planets["Mercury"] = OrbitingPlanet("Mercury", 214,  13, "mercury1", 3);
+    planets["Venus"] = OrbitingPlanet("Venus", 55, 40, "venus1", 3);
+    planets["Earth"] = OrbitingPlanet("Earth", 80, 39, "earth1", 4);
+    planets["Mars"] = OrbitingPlanet("Mars", 105, 219, "mars1", 4);
+    planets["Saturn"] = OrbitingPlanet("Saturn", 125, 110, "saturn1", 7);
+    planets["Jupiter"] = OrbitingPlanet("Jupiter", 150, 295, "jupiter1", 8);
+    planets["Uranus"] = OrbitingPlanet("Uranus", 200, 135, "uranus1", 7);
   }
 
   Map<String, OrbitingPlanet> getPlanets() {

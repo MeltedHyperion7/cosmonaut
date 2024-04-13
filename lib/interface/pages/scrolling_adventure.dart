@@ -1,4 +1,7 @@
-import 'package:cosmonaut/calculations/scrolling_distances.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:cosmonaut/calculations/scaling.dart';
+import 'package:cosmonaut/constants.dart';
+import 'package:cosmonaut/interface/pages/creeper.dart';
 import 'package:cosmonaut/interface/pages/planet.dart';
 import 'package:flutter/material.dart';
 import 'package:cosmonaut/interface/pages/solarSystem.dart';
@@ -22,75 +25,83 @@ class ScrollingAdventure extends StatefulWidget {
 }
 
 class _ScrollingAdventureState extends State<ScrollingAdventure> {
-  final ScrollingDistances _scrollingDistances = const ScrollingDistances(1000);
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _audioPlayer.setReleaseMode(ReleaseMode.loop);
+    _audioPlayer.play(AssetSource('sounds/loop.mp3'));
+  }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Stack(
-      children: <Widget>[
-        CustomScrollView(
-          reverse: true,
-          slivers: <Widget>[
-            SliverList(
-                delegate: SliverChildListDelegate([
-              Planet('Sun'),
-              SizedBox(
-                height: _scrollingDistances.getDistance(0),
-              ),
-              Planet('Mercury'),
-              SizedBox(
-                height: _scrollingDistances.getDistance(1),
-              ),
-              Planet('Venus'),
-              SizedBox(
-                height: _scrollingDistances.getDistance(2),
-              ),
-              Planet('Earth'),
-              SizedBox(
-                height: _scrollingDistances.getDistance(3),
-              ),
-              Planet('Mars'),
-              SizedBox(
-                height: _scrollingDistances.getDistance(4),
-              ),
-              Planet('Jupiter'),
-              SizedBox(
-                height: _scrollingDistances.getDistance(5),
-              ),
-              Planet('Saturn'),
-              SizedBox(
-                height: _scrollingDistances.getDistance(6),
-              ),
-              Planet('Uranus'),
-              SizedBox(
-                height: _scrollingDistances.getDistance(7),
-              ),
-              Planet('Neptune'),
-            ]))
+    return Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/bg6.png'),
+                fit: BoxFit.cover)),
+        child: Stack(
+          children: <Widget>[
+            CustomScrollView(
+              reverse: true,
+              slivers: <Widget>[
+                SliverList(
+                    delegate: SliverChildListDelegate([
+                  Planet('Sun', Scaling.getDiameter(0)),
+                  const Creeper(),
+                  SizedBox(
+                    height: Scaling.getDistance(0),
+                  ),
+                  Planet('Mercury', Scaling.getDiameter(1)),
+                  SizedBox(
+                    height: Scaling.getDistance(1),
+                  ),
+                  Planet('Venus', Scaling.getDiameter(2)),
+                  SizedBox(
+                    height: Scaling.getDistance(2),
+                  ),
+                  Planet('Earth', Scaling.getDiameter(3)),
+                  SizedBox(
+                    height: Scaling.getDistance(3),
+                  ),
+                  Planet('Mars', Scaling.getDiameter(4)),
+                  SizedBox(
+                    height: Scaling.getDistance(4),
+                  ),
+                  Planet('Jupiter', Scaling.getDiameter(5)),
+                  SizedBox(
+                    height: Scaling.getDistance(5),
+                  ),
+                  Planet('Saturn', Scaling.getDiameter(6)),
+                  SizedBox(
+                    height: Scaling.getDistance(6),
+                  ),
+                  Planet('Uranus', Scaling.getDiameter(7)),
+                  SizedBox(
+                    height: Scaling.getDistance(7),
+                  ),
+                  Planet('Neptune', Scaling.getDiameter(8)),
+                ]))
+              ],
+            ),
+            Positioned(
+                top: SWITCH_BUTTON_MARGIN_TOP,
+                right: SWITCH_BUTTON_MARGIN_RIGHT,
+                child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SolarSystem()),
+                      );
+                    },
+                    child: const Image(
+                        image: AssetImage('assets/images/space-pig.png'),
+                        height: 20,
+                        width: 20))),
           ],
-        ),
-        Positioned(
-            top: 22,
-            right: 16,
-            child: OutlinedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SolarSystem()),
-                  );
-                },
-                child: const Image(
-                    image: AssetImage('assets/images/space-pig.png'),
-                    height: 20,
-                    width: 20))),
-      ],
-    );
+        ));
   }
 }
