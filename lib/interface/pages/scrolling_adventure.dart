@@ -1,3 +1,5 @@
+import 'package:cosmonaut/calculations/scrolling_distances.dart';
+import 'package:cosmonaut/interface/pages/planet.dart';
 import 'package:flutter/material.dart';
 import 'package:cosmonaut/interface/pages/solarSystem.dart';
 
@@ -20,6 +22,8 @@ class ScrollingAdventure extends StatefulWidget {
 }
 
 class _ScrollingAdventureState extends State<ScrollingAdventure> {
+  final ScrollingDistances _scrollingDistances = const ScrollingDistances(1000);
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -35,11 +39,39 @@ class _ScrollingAdventureState extends State<ScrollingAdventure> {
           slivers: <Widget>[
             SliverList(
                 delegate: SliverChildListDelegate([
-              const Image(image: AssetImage('assets/images/sun1.png')),
-              const SizedBox(
-                height: 3000,
+              Planet('Sun'),
+              SizedBox(
+                height: _scrollingDistances.getDistance(0),
               ),
-              const Image(image: AssetImage('assets/images/space-pig.png')),
+              Planet('Mercury'),
+              SizedBox(
+                height: _scrollingDistances.getDistance(1),
+              ),
+              Planet('Venus'),
+              SizedBox(
+                height: _scrollingDistances.getDistance(2),
+              ),
+              Planet('Earth'),
+              SizedBox(
+                height: _scrollingDistances.getDistance(3),
+              ),
+              Planet('Mars'),
+              SizedBox(
+                height: _scrollingDistances.getDistance(4),
+              ),
+              Planet('Jupiter'),
+              SizedBox(
+                height: _scrollingDistances.getDistance(5),
+              ),
+              Planet('Saturn'),
+              SizedBox(
+                height: _scrollingDistances.getDistance(6),
+              ),
+              Planet('Uranus'),
+              SizedBox(
+                height: _scrollingDistances.getDistance(7),
+              ),
+              Planet('Neptune'),
             ]))
           ],
         ),
