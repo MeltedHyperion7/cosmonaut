@@ -27,7 +27,7 @@ class _Wordl_Row_State extends State<Wordl_Row> {
   final List<TextField> textFields = [];
   late List<Color> colors = [];
   late bool readOnly = false;
-  final formKey = GlobalKey();
+  List<TextEditingController> textControllers = [];
 
   // Wordl_Row(this.user_response, this.true_response);
 
@@ -38,19 +38,13 @@ class _Wordl_Row_State extends State<Wordl_Row> {
     final int length = widget.word.length;
     for (int i = 0; i < length; i++) {
       colors.add(Colors.white);
-      textFields.add(TextField(
-        readOnly: readOnly,
-        style: TextStyle(color: colors[i]),
-        // validator: (value) => value != null && value.isEmpty ? "" : null,
-        maxLength: 1,
-        // inputFormatters: [LengthLimitingTextInputFormatter(1)],
-      ));
+      textControllers.add(TextEditingController());
     }
   }
 
   void evaluateResponse() {
-    for (var field in textFields) {
-      if (field.controller!.text.isEmpty) {
+    for (var controller in textControllers) {
+      if (controller.text.isEmpty) {
         widget.onSubmit(WordlResult.invalid);
         return;
       }
@@ -91,11 +85,35 @@ class _Wordl_Row_State extends State<Wordl_Row> {
   Widget build(BuildContext context) {
     if (readOnly) {
       return Row(
-        children: textFields,
+        children: textControllers.asMap().entries.map((e) => Container(
+          width: 20,
+          child: TextField(
+            readOnly: readOnly,
+            textCapitalization: TextCapitalization.characters,
+            enableSuggestions: false,
+            style: TextStyle(color: colors[e.key]),
+            controller: e.value,
+            // validator: (value) => value != null && value.isEmpty ? "" : null,
+            maxLength: 1,
+            enabled: false,
+            // inputFormatters: [LengthLimitingTextInputFormatter(1)],
+          ))).toList(),
       );
     } else {
       return Column(children: [
-        Row(children: textFields),
+        Container(
+          height: 200,
+          width: 1000,
+          child: Row(
+          children: textControllers.asMap().entries.map((e) => SizedBox(width: 20, height: 30, child: Material(child: TextField(
+          readOnly: readOnly,
+          style: TextStyle(color: colors[e.key]),
+          controller: e.value,
+          // validator: (value) => value != null && value.isEmpty ? "" : null,
+          maxLength: 1,
+          enabled: false,
+        // inputFormatters: [LengthLimitingTextInputFormatter(1)],
+        )))).toList())),
         Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -130,8 +148,8 @@ class _WordlState extends State<Wordl> {
     if (attempts == maxAttempts) {
       // TODO
     } else {
-      children.add(Wordl_Row(widget.word, (result) {
         setState(() {
+          children.add(Wordl_Row(widget.word, (result) {
           attempts++;
 
           switch (result) {
@@ -146,8 +164,8 @@ class _WordlState extends State<Wordl> {
               // TODO: Handle this case.
               break;
           }
-        });
-      }));
+        }));
+      });
     }
   }
 
@@ -163,12 +181,18 @@ class _WordlState extends State<Wordl> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
+      const SizedBox(height: 50,),
       //Question Text
-      Text(widget.question),
+      
+      Text("WORDLE", style: const TextStyle(
+              fontFamily: 'Minecraft',
+              color: Colors.white,
+              decoration: TextDecoration.none,
+              fontSize: 24,
+              letterSpacing: 4),),
 
       //Row of User Inputs
-      ...children,      // Submit Button
-
+      ...children, // Submit Button
     ]);
   }
 }

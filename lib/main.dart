@@ -1,3 +1,4 @@
+import 'package:cosmonaut/interface/pages/solarSystem.dart';
 import 'package:flutter/material.dart';
 import 'package:cosmonaut/interface/pages/scrolling_adventure.dart';
 import 'package:themed/themed.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
           fontFamily: 'Minecraft'),
-      home: const ScrollingAdventure(title: 'Cosmonaut'),
+      home: const SolarSystem(),
     ));
   }
 }
