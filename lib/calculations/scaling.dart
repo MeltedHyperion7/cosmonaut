@@ -2,15 +2,32 @@ import 'package:cosmonaut/constants.dart';
 
 class Scaling {
   static const List<double> _distancesAU = [
-    0.39, // Sun - Merc
-    0.34, // Merc - Ven
-    0.28, // Ven - Ear
+    0.10, // Sun - Fact1
+    0.09, // Fact1 - Fact2
+    0.10, // Fact2 - Merc
+
+    0.11, // Merc - Fact3
+    0.12, // Fact3 - Fact4
+    0.11, // Fact4 - Ven
+    
+    0.09, // Ven - Fact5
+    0.10, // Fact5 - Fact6
+    0.09, // Fact6 - Ear
+
     0.52, // Ear - Mar
     3.68, // Mar - Jup
     4.32, // Jup - Sat
     9.70, // Sat - Uar
     10.88, // Uar - Nep
   ];
+  // 0.39, // Sun - Merc
+  // 0.34, // Merc - Ven
+  // 0.28, // Ven - Ear
+  // 0.52, // Ear - Mar
+  // 3.68, // Mar - Jup
+  // 4.32, // Jup - Sat
+  // 9.70, // Sat - Uar
+  // 10.88, // Uar - Nep
 
   static const List<double> _diametersAU = [
     36.00, // Sun

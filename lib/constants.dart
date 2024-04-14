@@ -1,5 +1,10 @@
-const double SWITCH_BUTTON_MARGIN_TOP = 28;
+const double SWITCH_BUTTON_MARGIN_TOP = 56;
 const double SWITCH_BUTTON_MARGIN_RIGHT = 16;
 
-const double DISTANCE_SCALE = 1000;
+const double WORDL_BUTTON_MARGIN_TOP = 112;
+const double WORDL_BUTTON_MARGIN_RIGHT = 16;
+
+const double DISTANCE_SCALE = 5000;
 const double PLANET_SCALE = 10;
+
+const double SCROLL_TEXT_TRANSITION_THRESHOLD = 20;

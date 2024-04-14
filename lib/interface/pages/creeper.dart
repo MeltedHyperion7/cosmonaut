@@ -17,12 +17,19 @@ class _CreeperState extends State<Creeper> {
     super.initState();
 
     _audioPlayer.setReleaseMode(ReleaseMode.release);
+    _audioPlayer.play(AssetSource("sounds/creeper.mp3"));
+
   }
 
   @override
+  void dispose() {
+      _audioPlayer.dispose();
+      super.dispose();
+    }
+  @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
-      tween: Tween<double>(begin: -1, end: 4),
+      tween: Tween<double>(begin: 0, end: 3),
       duration: const Duration(seconds: 4),
       curve: Curves.bounceOut,
       builder: (BuildContext context, double brightness, Widget? child) {
@@ -31,7 +38,8 @@ class _CreeperState extends State<Creeper> {
           child: Image.asset("assets/images/creeper.png"),
         );
       },
-      onEnd: () => {_audioPlayer.play(AssetSource("sounds/creeper.mp3"))},
+      
+      onEnd: () => {dispose()},
     );
   }
 }
